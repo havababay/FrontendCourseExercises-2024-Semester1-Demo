@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Handling</title>
+  </head>
+  <body>
+    <button onclick="alert('Button Clicked 1')">
+      Click Inline Event Handling
+    </button>
+    <button id="buttonProgrammatic">Click Programmatic Event Handling</button>
+    <script>
+      function demoAlert() {
+        alert("Button Clicked 2");
+      }
+
+      document
+        .getElementById("buttonProgrammatic")
+        .addEventListener("click", demoAlert);
+    </script>
+  </body>
+</html>
