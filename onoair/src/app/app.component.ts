@@ -3,10 +3,18 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'onoair';
+  counter = 0;
+
+  incrementCounter() {
+    this.counter++;
+  }
+
+  decrementCounter() {
+    this.counter--;
+  }
 }
