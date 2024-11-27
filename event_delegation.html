@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <button id="button1">Button 1</button>
+        <button id="button2">Button 2</button>
+        <button id="button3">Button 3</button>
+    </div>
+    <div id="add-container">
+        <button id="add">Add Button</button>
+    </div>
+
+    <script>
+        const buttons = Array.from(document.getElementsByTagName("button"));
+
+        buttons.forEach((button) => {
+            button.addEventListener("click", (event) => {
+                console.log(`Button ${event.target.id} was clicked`);
+            });
+        });
+
+        document.getElementById("add").addEventListener("click", () => {
+            const newButton = document.createElement("button");
+            const buttons = Array.from(document.getElementsByTagName("button"));
+            newButton.innerText = `Button ${buttons.length}`;
+            newButton.id = `button${buttons.length}`;
+            document.getElementById("container").appendChild(newButton);
+        });
+
+        document.getElementById("container").addEventListener("click", (event) => {
+            console.log(`Button ${event.target.id} was clicked`);
+        });
+    </script>
+</body>
+</html>
