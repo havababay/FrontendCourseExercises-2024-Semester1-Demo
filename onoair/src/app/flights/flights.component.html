@@ -1,1 +1,10 @@
-<p>flights works!</p>
+@for ( flight of flightsData; track flight.flightNumber) {
+<app-flight [id]="flight.flightNumber"></app-flight>
+}
+<div *ngFor="let flight of flightsData">
+  <app-flight [id]="flight.flightNumber"></app-flight>
+</div>
+
+<button color="secondary" mat-raised-button (click)="addFlight()">
+  Add Flight
+</button>
