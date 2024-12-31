@@ -3,11 +3,11 @@
 } @else { @if (!isFlightExists) {
 <h1>Flight {{ id }} not found</h1>
 } @else {
-<h1>Edit Flight No. {{ id }}</h1>
+<h1>Edit Flight No. {{ this.flight.flightNumber }}</h1>
 } } } @else {
 <h1>Add Flight</h1>
 } @if ((isFlightLoaded && isFlightExists) || !id) {
-<form #flightForm="ngForm" appUniqueDestinationsValidator>
+<form #flightForm="ngForm" appUniqueDestinationsValidator (submit)="submitFlight()">
   <div>
     <mat-form-field>
       <mat-label>Flight Number</mat-label>
@@ -18,6 +18,7 @@
         type="number"
         [(ngModel)]="flight.flightNumber"
         [readonly]="id"
+        required
       />
     </mat-form-field>
   </div>
@@ -58,9 +59,14 @@
         [matDatepicker]="datepicker"
         [(ngModel)]="flight.originTime"
         name="originDate"
+        appLaterThenToday
+        #originDate="ngModel"
       />
       <mat-datepicker #datepicker />
       <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      @if (originDate.invalid && originDate.hasError('laterThenToday')) {
+        <mat-error>Date must be after today</mat-error>  
+      }
     </mat-form-field>
 
     <mat-form-field>
@@ -86,9 +92,13 @@
         [matDatepicker]="datepicker1"
         [(ngModel)]="flight.destinationTime"
         name="destDate"
+        appLaterThenToday
       />
       <mat-datepicker #datepicker1 />
       <mat-datepicker-toggle [for]="datepicker1" matSuffix />
+      @if (originDate.invalid && originDate.hasError('laterThenToday')) {
+        <mat-error>Date must be after today</mat-error>  
+      }
     </mat-form-field>
 
     <mat-form-field>
@@ -122,6 +132,11 @@
       <mat-error>Seats must be more then 10</mat-error>
       }
     </mat-form-field>
+  </div>
+  <div>
+    @if (flightForm.hasError('uniqueDestinations')) {
+      <mat-error>Destination and origin must be different</mat-error> 
+    }
   </div>
   <div>
     <button

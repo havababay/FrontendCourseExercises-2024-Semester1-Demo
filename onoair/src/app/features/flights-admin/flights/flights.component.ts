@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightsService } from '../../../services/flights.service';
+import { FlightsService } from '../services/flights.service';
 import { Flight } from '../../../model/flight';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -25,9 +25,9 @@ export class FlightsComponent implements OnInit {
     'actions',
   ];
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(private flightsService: FlightsService) { }
 
   ngOnInit(): void {
-    this.flightsData = this.flightsService.list();
+    this.flightsService.list().then((flights) => (this.flightsData = flights));
   }
 }
