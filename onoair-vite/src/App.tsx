@@ -4,6 +4,7 @@ import Home from "./Home";
 import Flights from "./Flights";
 import FlightForm from "./FlightForm";
 import Header from "./Header";
+import Footer from "./Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/flights" element={<Flights />} />
         <Route path="/flight/:id" element={<FlightForm />} />
       </Routes>
+      <Footer />
     </>
   );
 }
