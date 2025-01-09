@@ -22,6 +22,15 @@ export default function Flights() {
     });
   }, []);
 
+  const options : Intl.DateTimeFormatOptions= { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric', 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    hour12: true 
+  };
+
   return (
     <div>
       {loading ? (
@@ -50,10 +59,10 @@ export default function Flights() {
                         <TableCell>{flight.destinationCode}</TableCell>
                         <TableCell>{flight.originCode}</TableCell>
                         <TableCell>
-                          {flight.originTime.toDateString()}
+                          {flight.originTime.toLocaleDateString("en-US", options)}
                         </TableCell>
                         <TableCell>
-                          {flight.destinationTime.toDateString()}
+                          {flight.destinationTime.toLocaleDateString("en-US", options)}
                         </TableCell>
                         <TableCell>{flight.seats}</TableCell>
                       </TableRow>
