@@ -15,6 +15,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/flights" element={<Flights />} />
         <Route path="/flight/:id" element={<FlightForm />} />
+        <Route path="flight-new" element={<FlightForm />} />
       </Routes>
       <Footer />
     </>
