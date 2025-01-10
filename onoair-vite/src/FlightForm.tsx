@@ -5,11 +5,12 @@ import Typography from "@mui/material/Typography";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Flight } from "./model/Flight";
-import { addFlight } from "./firebase/flights/flights";
+import { addFlight, getFlight, updateFlight } from "./firebase/flights/flights";
+import { LinearProgress } from "@mui/material";
 
 export default function FlightForm() {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ export default function FlightForm() {
   const [originCode, setOriginCode] = useState("");
   const [originTime, setOriginTime] = useState<Dayjs | null>(null);
   const [destinationTime, setDestinationTime] = useState<Dayjs | null>(null);
-  const [seats, setSeats] = useState("");
+  const [seats, setSeats] = useState(0);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const isFormValid = () => {
     return (
@@ -48,13 +51,43 @@ export default function FlightForm() {
         parseInt(seats)
       );
 
-      addFlight(flight).then(() => {
-        navigate("/flights");
-      });
+      if (!id) {
+        addFlight(flight).then(() => {
+          navigate("/flights");
+        });
+      } else {
+        updateFlight(flight).then(() => {
+          navigate("/flights");
+        });
+      }
     }
   };
 
-  return (
+  useEffect(() => {
+    if (id) {
+      setIsLoading(true);
+      getFlight(id)
+        .then((flight?: Flight) => {
+          if (flight) {
+            setFlightNumber(flight.flightNumber);
+            setDestinationCode(flight.destinationCode);
+            setOriginCode(flight.originCode);
+            setOriginTime(dayjs(flight.originTime));
+            setDestinationTime(dayjs(flight.destinationTime));
+            setSeats(flight.seats);
+          } else {
+            setError("Flight not found");
+          }
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [id]);
+
+  return isLoading ? (
+    <LinearProgress />
+  ) : error ? (
+    <Typography variant="h5" gutterBottom>{error}</Typography>
+  ) : (
     <div>
       <form onSubmit={handleSubmit}>
         <Typography variant="h5" gutterBottom>
@@ -68,6 +101,7 @@ export default function FlightForm() {
               value={flightNumber}
               onChange={(e) => setFlightNumber(e.target.value)}
               required
+              disabled={id != "" ? true : false}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -114,7 +148,7 @@ export default function FlightForm() {
               label="Seats"
               type="number"
               value={seats}
-              onChange={(e) => setSeats(e.target.value)}
+              onChange={(e) => setSeats(parseInt(e.target.value))}
               required
             />
           </Grid>

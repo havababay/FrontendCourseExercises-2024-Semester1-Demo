@@ -9,7 +9,8 @@ import TableHead from "@mui/material/TableHead";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
 import "./Flights.css";
 
 export default function Flights() {
@@ -50,6 +51,7 @@ export default function Flights() {
                       <TableCell>Origin Time</TableCell>
                       <TableCell>Destination Time</TableCell>
                       <TableCell>Seats</TableCell>
+                      <TableCell>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -65,6 +67,11 @@ export default function Flights() {
                           {flight.destinationTime.toLocaleDateString("en-US", options)}
                         </TableCell>
                         <TableCell>{flight.seats}</TableCell>
+                        <TableCell>
+                          <IconButton href={`/flight/${flight.id}`}>
+                            <EditIcon />
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
