@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form example</title>
+  </head>
+  <body>
+    <div id="form-container">
+      <form method="GET" id="registration-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" /><br />
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" /><br />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" /><br />
+        <label for="password-confom">Confirm password:</label>
+        <input
+          type="password"
+          id="password-confom"
+          name="password-confirm"
+        /><br />
+        <input type="submit" value="Submit" />
+
+        <div id="error-message"></div>
+      </form>
+    </div>
+    <script>
+      const form = document.getElementById("registration-form");
+      form.addEventListener("submit", (event) => {
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const passwordConfirm = form["password-confirm"].value;
+        console.log(password, passwordConfirm);
+        if (password !== passwordConfirm) {
+          const errorMessage = document.getElementById("error-message");
+          errorMessage.textContent = "Passwords do not match.";
+          event.preventDefault();
+        }
+      });
+
+      form.addEventListener("input", (event) => {
+        console.log("Field changed:", event.target.name);
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "";
+      });
+
+      const body = document.body;
+      body.addEventListener("input", (event) => {
+        console.log("input on body");
+      });
+    </script>
+  </body>
+</html>

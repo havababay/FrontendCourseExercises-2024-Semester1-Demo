@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Flight</title>
+    <script src="new-flight.js" type="module"></script>
+</head>
+<body>
+    <h1>New Flight</h1>
+    <form id="flight-form" action="flights.html">
+        <label for="flight-number">Flight Number:</label>
+        <input type="text" id="flight-number" name="flight-number" required><br>        
+        <label for="destination-code">Destination:</label>
+        <select id="destination-code" name="destination-code" required></select><br>
+        <label for="origin-code">Origin:</label>
+        <select id="origin-code" name="origin-code" required></select><br>
+        <label for="departure-time">Departure Time:</label>
+        <input type="datetime-local" id="departure-time" name="departure-time" required><br>
+        <label for="arrival-time">Arrival Time:</label>
+        <input type="datetime-local" id="arrival-time" name="arrival-time" required><br>
+        <label for="seats">Seats:</label>
+        <input type="number" id="seats" name="seats" required><br>
+        <input type="submit" value="Save">
+
+        <div id="error-message"></div>
+    </form>
+</body>
+</html>

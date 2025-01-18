@@ -1,0 +1,29 @@
+<mat-toolbar color="secondary">
+  <button mat-icon-button [matMenuTriggerFor]="main">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #main="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="admin">
+      <span>Admin</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="user">
+      <span>User</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #user="matMenu">
+    <button mat-menu-item>
+      <span>My Booking</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #admin="matMenu">
+    <button mat-menu-item>
+      <span>Manage Destinations</span>
+    </button>
+    <button mat-menu-item routerLink="/flights">
+      <span>Manage Flights</span>
+    </button>
+  </mat-menu>
+  <div routerLink="">Ono Air</div>
+</mat-toolbar>

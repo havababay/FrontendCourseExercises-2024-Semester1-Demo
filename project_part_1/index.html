@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((html) => {
+          const headerContainer = document.getElementById("header-container");
+          headerContainer.innerHTML = html;
+        })
+        .catch((error) => console.error("Error loading header.html:", error));
+    </script>
+  </head>
+  <body>
+    <div id="header-container"></div>
+    <a href="destinations.html">Manage Destinations</a>
+    <a href="flights.html">Manage Flights</a>
+  </body>
+</html>

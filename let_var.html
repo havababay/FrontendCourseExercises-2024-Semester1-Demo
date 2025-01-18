@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="url" id="url" />
+    <div id="container"></div>
+    <div id="table"></div>
+    <script>
+      var a = 10;
+
+      function demo() {
+        var a = 20;
+
+        if (true) {
+          var a = 30;
+          console.log(a);
+        }
+
+        console.log(a);
+      }
+
+      demo();
+      console.log(a);
+
+      let container = document.getElementById("container");
+      let paragraph = document.createElement("p");
+      paragraph.innerText = "This is a paragraph";
+      container.appendChild(paragraph);
+
+      let urlElement = document.getElementById("url");
+
+      urlElement.addEventListener("input", () => {
+        console.log(urlElement.value);
+
+        if (urlElement.validity.valid) {
+          console.log("Input is valid");
+        } else {
+          console.log("Input is not valid");
+        }
+      });
+    </script>
+    <script src="let_var.js"></script>
+  </body>
+</html>

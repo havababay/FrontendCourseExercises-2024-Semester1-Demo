@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Destination</title>
+    <script src="new-destination.js" type="module"></script>
+</head>
+<body>
+    <h1>New Destination</h1>
+    <div>
+        <form id="new-destination-form" onsubmit="onSaveDestination()" action="destinations.html">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="code">Code:</label>
+            <input type="text" id="code" name="code" required><br>
+            <label for="airport-name">Airport Name:</label>
+            <input type="text" id="airport-name" name="airport-name" required><br>
+            <label for="airport-website">Airport Website:</label>
+            <input type="text" id="airport-website" name="airport-website" required><br>
+            <label for="airport-email">Airport Email:</label>
+            <input type="email" id="airport-email" name="airport-email" required><br>
+            <label for="image-url">Image URL:</label>
+            <input type="url" id="image-url" name="image-url" required><br>
+            <input type="submit" value="Save">
+        </form>
+    </div>
+</body>
+</html>

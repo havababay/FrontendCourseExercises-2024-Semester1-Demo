@@ -1,0 +1,151 @@
+@if (id) { @if (!isFlightLoaded) {
+<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+} @else { @if (!isFlightExists) {
+<h1>Flight {{ id }} not found</h1>
+} @else {
+<h1>Edit Flight No. {{ this.flight.flightNumber }}</h1>
+} } } @else {
+<h1>Add Flight</h1>
+} @if ((isFlightLoaded && isFlightExists) || !id) {
+<form #flightForm="ngForm" appUniqueDestinationsValidator (submit)="submitFlight()">
+  <div>
+    <mat-form-field>
+      <mat-label>Flight Number</mat-label>
+      <input
+        matInput
+        placeholder="Flight Number"
+        name="flightNumber"
+        type="number"
+        [(ngModel)]="flight.flightNumber"
+        [readonly]="id"
+        required
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Destination</mat-label>
+      <mat-select
+        [(ngModel)]="flight.destinationCode"
+        name="destinationCode"
+        required
+      >
+        @for (dest of destinationsData; track dest.code) {
+        <mat-option [value]="dest.code"
+          >{{ dest.name }} ({{ dest.code }})</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Origin</mat-label>
+      <mat-select [(ngModel)]="flight.originCode" name="originCode" required>
+        @for (dest of destinationsData; track dest.code) {
+        <mat-option [value]="dest.code"
+          >{{ dest.name }} ({{ dest.code }})</mat-option
+        >
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Departure date</mat-label>
+      <input
+        required
+        matInput
+        [matDatepicker]="datepicker"
+        [(ngModel)]="flight.originTime"
+        name="originDate"
+        appLaterThenToday
+        #originDate="ngModel"
+      />
+      <mat-datepicker #datepicker />
+      <mat-datepicker-toggle [for]="datepicker" matSuffix />
+      @if (originDate.invalid && originDate.hasError('laterThenToday')) {
+        <mat-error>Date must be after today</mat-error>  
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Departure time</mat-label>
+      <input
+        required
+        matInput
+        name="originTime"
+        [matTimepicker]="timepicker"
+        [(ngModel)]="flight.originTime"
+        [ngModelOptions]="{ updateOn: 'blur' }"
+      />
+      <mat-timepicker #timepicker />
+      <mat-timepicker-toggle [for]="timepicker" matSuffix />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Landing date</mat-label>
+      <input
+        required
+        matInput
+        [matDatepicker]="datepicker1"
+        [(ngModel)]="flight.destinationTime"
+        name="destDate"
+        appLaterThenToday
+      />
+      <mat-datepicker #datepicker1 />
+      <mat-datepicker-toggle [for]="datepicker1" matSuffix />
+      @if (originDate.invalid && originDate.hasError('laterThenToday')) {
+        <mat-error>Date must be after today</mat-error>  
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Landing time</mat-label>
+      <input
+        required
+        matInput
+        name="destTime"
+        [matTimepicker]="timepicker1"
+        [(ngModel)]="flight.destinationTime"
+        [ngModelOptions]="{ updateOn: 'blur' }"
+      />
+      <mat-timepicker #timepicker1 />
+      <mat-timepicker-toggle [for]="timepicker1" matSuffix />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>No. of seats</mat-label>
+      <input
+        matInput
+        placeholder="No. of seats"
+        name="seats"
+        type="number"
+        min="10"
+        [(ngModel)]="flight.seats"
+        required
+        #seats="ngModel"
+      />
+      @if (seats.invalid) {
+      <mat-error>Seats must be more then 10</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div>
+    @if (flightForm.hasError('uniqueDestinations')) {
+      <mat-error>Destination and origin must be different</mat-error> 
+    }
+  </div>
+  <div>
+    <button
+        type="submit"
+        mat-raised-button
+        [disabled]="!flightForm.valid"
+        color="secondary">
+        Save
+    </button>
+  </div>
+</form>
+}
